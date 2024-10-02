@@ -1,0 +1,4 @@
+minimal_publisher:
+  ros__parameters:
+    username: admin
+    password: admin

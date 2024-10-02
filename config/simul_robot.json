@@ -1,0 +1,8 @@
+{
+    "username": "admin",
+    "password": "admin",
+    "url" : http://localhost:8000/,
+    "login" : "Singin" ,
+    "robot_status" : "update_robotStatus"
+
+}
