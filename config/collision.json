@@ -1,4 +1,5 @@
 {
     "robot_code": "robot_2",
-    "position_collision" : "Tmh"
+    "position_collision" : ["Tmh"],
+    "map_code" : "pickup_location"
 }

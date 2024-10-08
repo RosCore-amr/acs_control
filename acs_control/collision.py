@@ -83,7 +83,11 @@ class AcsSystemControl(Node):
                 )
                 return communication_acs
 
-    def gumshoe_collision(self, robot_current, possition_collision_current):
+    def gumshoe_collision(self, robot_current, _possition_collision_current, _map_code):
+
+        if not len(_possition_collision_current):
+            return False
+        possition_collision_current = _possition_collision_current[0]
 
         wrap_factory = self.wrap_collision_factory(
             robot_current, possition_collision_current
@@ -135,7 +139,7 @@ class AcsSystemControl(Node):
         #     request.robot_code: request.position_collision
         # }
         result_response = self.gumshoe_collision(
-            request.robot_code, request.position_collision
+            request.robot_code, request.position_collision, request.map_code
         )
 
         response.result = str({"moving": result_response})

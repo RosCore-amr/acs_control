@@ -1,0 +1,26 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/mm/robot_ws/install/robot_interfaces/include/**",
+        "/home/mm/robot_ws/install/action_interfaces_msg/include/**",
+        "/home/mm/ws/install/robot_interfaces/include/**",
+        "/home/mm/demo_fleet/install/rmf_utils/include/**",
+        "/home/mm/demo_fleet/install/rmf_traffic_editor/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/mm/ws/src/robot_interfaces/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
