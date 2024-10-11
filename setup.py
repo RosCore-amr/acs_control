@@ -32,6 +32,7 @@ setup(
             "collision_sever = acs_control.collision:main",
             "test = acs_control.test:main",
             "comunication_acs = acs_control.comunication_acs:main",
+            "elevator_control = acs_control.elevator_control:main",
         ],
     },
 )

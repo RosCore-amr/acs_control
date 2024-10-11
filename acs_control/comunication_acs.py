@@ -36,6 +36,15 @@ class ACSControlSocket(Node):
         self.srv_collision_acs = self.create_service(
             CommonRequest, "collison_acs", self.collision_acs_srv
         )
+        self.publisher_elevator_status = self.create_publisher(
+            String, "elevator_status", 10
+        )
+
+        self.subscription_communication_with_acs = self.create_subscription(
+            String, "acs_communication", self.communocation_acs_callback, 10
+        )
+        self.subscription_communication_with_acs  # prevent unused variable warning
+
         self.initial_protocol()
         self._host = "107.113.5.242"
         self._port = 8082
@@ -81,12 +90,6 @@ class ACSControlSocket(Node):
                 return config
             except yaml.YAMLError as e:
                 print(e)
-
-    def collision_acs_srv(self, request, response):
-
-        self.get_logger().info(f"error: {request.msg_request}")
-        response.msg_response = "minh dep trai"
-        return response
 
     def create_frame(self, index_type, ap, msg, agv_id, command):
 
@@ -150,6 +153,47 @@ class ACSControlSocket(Node):
                         "command": data_all[6:18].decode("utf-8"),
                     }
         return False
+
+    def communocation_acs_callback(self, msg):
+        _command_request = eval(msg.data)
+        _command = _command_request["commnad"]
+        _agv_id = _command_request["agv_id"]
+
+        self.get_logger().info('_command_request: "%s"' % _command_request)
+        self.get_logger().info('_command: "%s"' % _command)
+        self.get_logger().info('_agv_id: "%s"' % _agv_id)
+        # self.write_value(_command, _agv_id)
+
+    def check_door_open(self):
+        _listen = self.listen_rev()
+        if _listen["index"] == "T":
+            pass
+
+    def pub_elevator_status(self, _data_request):
+        msg = String()
+        msg.data = str(_data_request)
+        self.publisher_elevator_status.publish(msg)
+
+    def collision_acs_srv(self, request, response):
+
+        self.get_logger().info(f"error: {request.msg_request}")
+        response.msg_response = "minh dep trai"
+        return response
+
+    def write_value(self, command, agv_id):
+        # if self.target.is_socket_open():
+        msg = random.randint(1, 9)
+
+        try:
+            _sent_acs = self.ethernet_protocal.send(
+                self.create_frame("T", 1, msg, agv_id, command)
+            )
+            self.get_logger().info(f"Result: {_sent_acs}")
+            # result = self.target.write_register(
+            #     address=_address, value=_value, slave=_slave
+            # )
+        except:
+            pass
 
     def main_loop(self):
 
